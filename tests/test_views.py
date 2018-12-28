@@ -18,6 +18,10 @@ class TestGameView(unittest.TestCase):
         ╚═══╩═══╩═══╝
         ''')
     
+    def test_new_lines(self):
+        self.assertEqual(self.view.newlines(), '\n')
+        self.assertEqual(self.view.newlines(3), '\n\n\n')
+
     def test_win_player(self):
         self.assertEqual(self.view.win_player(1), 'Player 1 won!')
         self.assertEqual(self.view.win_player(2), 'Player 2 won!')

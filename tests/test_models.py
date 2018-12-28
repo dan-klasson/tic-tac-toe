@@ -8,6 +8,14 @@ class TestGame(unittest.TestCase):
     def setUp(self):
         self.game = Game()
 
+    def test_board_positions(self):
+        self.game.board = [None, 'X', 'O', None]
+        self.assertEqual(self.game.board_positions, [1, 'X', 'O', 4])
+
+        self.game.board = ['X', 'O', None, None]
+        self.assertEqual(self.game.board_positions, ['X', 'O', 3, 4])
+
+
     def test_available_positions(self):
         self.game.board = [None, 'X', 'O', None]
         self.assertEqual(self.game.available_positions, [0, 3])
@@ -43,3 +51,32 @@ class TestGame(unittest.TestCase):
         self.assertEqual(game.moves, [])
         self.assertEqual(game.board, [None, None, None, None])
 
+    def test_is_won__false(self):
+        self.game.board = ['X', 'X', None, 'X', None, None, None, None, None]
+        self.assertFalse(self.game.is_won())
+
+    def test_is_won__true(self):
+        self.game.board = ['X', 'X', 'X', None, None, None, None, None, None]
+        self.assertTrue(self.game.is_won())
+
+    def test_is_won__full_board(self):
+        self.game.board = ['X'] * 9
+        self.assertTrue(self.game.is_won())
+
+    def test_maximized(self):
+        self.game.board = ['X', 'X', 'X', None, None, None, None, None, None]
+        self.assertEqual(self.game.maximized('X', 'O'), (3, 1))
+
+    def test_minimized(self):
+        self.game.board = ['X', 'X', 'X', 'O', 'O', None, None, None, None]
+        self.assertEqual(self.game.minimized('X', 'O'), (5, 1))
+
+    def test_score(self):
+        self.game.board = ['X', 'X', 'X', None, None, None, None, None, None]
+        self.assertEqual(self.game.score(marker='X', opponent='O'), 1)
+
+        self.game.board = ['O', 'O', 'O', None, None, None, None, None, None]
+        self.assertEqual(self.game.score(marker='X', opponent='O'), -1)
+
+        self.game.board = ['X', 'X', None, None, None, None, None, None, None]
+        self.assertEqual(self.game.score(marker='X', opponent='O'), 0)

@@ -7,6 +7,9 @@ class GameView:
     def intro(self):
         return '\nTic Tac Toe\n'
 
+    def newlines(self, amount=1):
+        return '\n' * amount
+
     @property
     def number_of_players(self):
         return 'Enter number of players (1-2): '

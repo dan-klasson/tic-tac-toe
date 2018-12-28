@@ -16,7 +16,12 @@ class GameController:
 
         while(True):
             players = input(self.view.number_of_players)
-            if players == "2":
+            if players == "1":
+                self.play(
+                    HumanController(player=1), 
+                    ComputerController(player=2)
+                )
+            elif players == "2":
                 self.play(
                     HumanController(player=1), 
                     HumanController(player=2)
@@ -25,6 +30,15 @@ class GameController:
                 print(self.view.number_of_players_error)
                 continue
             break
+
+        self.play_again()
+
+    def play_again(self):
+        resp = input(self.view.play_again)
+        if resp != 'n':
+            self.game = Game()
+            print(self.view.newlines())
+            self.run()
 
     def play(self, player1, player2):
 
@@ -91,3 +105,9 @@ class HumanController(PlayerController):
     
         game.mark(self.marker, move)
          
+class ComputerController(PlayerController):
+
+    def move(self, game):
+        move, _ = game.maximized(self.marker, self.opponent)
+        game.mark(self.marker, move)
+        print(self.view.next_move(self.player, move + 1))

@@ -50,3 +50,48 @@ class Game:
                 return True
 
         return False
+
+    def maximized(self, marker, opponent):
+        best_score, best_move = None, None
+
+        for move in self.available_positions:
+            self.mark(marker, move)
+        
+            if self.is_won():
+                score = self.score(marker, opponent)
+            else:
+                _, score = self.minimized(marker, opponent)
+        
+            self.undo_move
+            
+            if best_score == None or score > best_score:
+                best_score, best_move = score, move
+
+        return best_move, best_score
+
+    def minimized(self, marker, opponent):
+        best_score, best_move = None, None
+
+        for move in self.available_positions:
+            self.mark(opponent, move)
+        
+            if self.is_won():
+                score = self.score(marker, opponent)
+            else:
+                _, score = self.maximized(marker, opponent)
+        
+            self.undo_move
+            
+            if best_score == None or score < best_score:
+                best_score, best_move = score, move
+
+        return best_move, best_score
+
+    def score(self, marker, opponent):
+        if self.is_won():
+            if self.winner == marker:
+                return 1
+
+            elif self.winner == opponent:
+                return -1
+        return 0
