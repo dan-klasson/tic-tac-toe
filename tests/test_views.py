@@ -10,11 +10,11 @@ class TestGameView(unittest.TestCase):
         board = [1, 'O', 'O', 'X', 5, 'X', 7, 8, 9]
         self.assertEqual(self.view.board(board), '''
         ╔═══╦═══╦═══╗
-        ║ 1 ║ O ║ O ║ 
+        ║ 1 ║ O ║ O ║
         ╠═══╬═══╬═══╣
-        ║ X ║ 5 ║ X ║ 
+        ║ X ║ 5 ║ X ║
         ╠═══╬═══╬═══╣
-        ║ 7 ║ 8 ║ 9 ║ 
+        ║ 7 ║ 8 ║ 9 ║
         ╚═══╩═══╩═══╝
         ''')
     

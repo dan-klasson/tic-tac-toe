@@ -51,7 +51,7 @@ class GameController:
             else:
                 player2.move(self.game)
 
-                self.display_board()
+            self.display_board()
 
             if self.game.is_won():
                 return self.game_results(player1, player2)
