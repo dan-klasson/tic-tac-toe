@@ -26,6 +26,11 @@ class TestGameControllerPlayAgain(unittest.TestCase):
         self.assert_stdout('')
         self.assertTrue(input.called)
 
+    @patch('builtins.input', side_effect=['N'])
+    def test_play_again__no_capital(self, input):
+        self.assert_stdout('')
+        self.assertTrue(input.called)
+
     @patch('builtins.input', side_effect=[''])
     def test_play_again__default(self, input):
         self.assert_stdout('Tic Tac Toe')

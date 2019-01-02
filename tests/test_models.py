@@ -8,14 +8,6 @@ class TestGame(unittest.TestCase):
     def setUp(self):
         self.game = Game()
 
-    def test_board_positions(self):
-        self.game.board = [None, 'X', 'O', None]
-        self.assertEqual(self.game.board_positions, [1, 'X', 'O', 4])
-
-        self.game.board = ['X', 'O', None, None]
-        self.assertEqual(self.game.board_positions, ['X', 'O', 3, 4])
-
-
     def test_available_positions(self):
         self.game.board = [None, 'X', 'O', None]
         self.assertEqual(self.game.available_positions, [0, 3])

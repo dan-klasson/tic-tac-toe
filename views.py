@@ -3,18 +3,15 @@
 
 class GameView:
 
-    @property
     def intro(self):
         return '\nTic Tac Toe\n'
 
     def newlines(self, amount=1):
         return '\n' * amount
 
-    @property
     def number_of_players(self):
         return 'Enter number of players (1-2): '
     
-    @property
     def number_of_players_error(self):
         return '\nPlease enter 1 or 2'
 
@@ -27,12 +24,11 @@ class GameView:
         ╠═══╬═══╬═══╣
         ║ {6} ║ {7} ║ {8} ║ 
         ╚═══╩═══╩═══╝
-        '''.format(*board)
+        '''.format(*[x or (i + 1) for i, x in enumerate(board)])
 
     def win_player(self, player):
         return 'Player {} won!'.format(player)
 
-    @property
     def draw(self):
         return '\nGame ended in draw.'
 

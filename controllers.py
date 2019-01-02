@@ -12,10 +12,10 @@ class GameController:
 
     def run(self):
 
-        print(self.view.intro)
+        print(self.view.intro())
 
         while(True):
-            players = input(self.view.number_of_players)
+            players = input(self.view.number_of_players())
             if players == "1":
                 self.play(
                     HumanController(player=1), 
@@ -27,7 +27,7 @@ class GameController:
                     HumanController(player=2)
                 )
             else:
-                print(self.view.number_of_players_error)
+                print(self.view.number_of_players_error())
                 continue
             break
 
@@ -35,14 +35,14 @@ class GameController:
 
     def play_again(self):
         resp = input(self.view.play_again)
-        if resp != 'n':
+        if resp.lower() != 'n':
             self.game = Game()
             print(self.view.newlines())
             self.run()
 
     def play(self, player1, player2):
 
-        self.display_board
+        self.display_board()
 
         for i in range(9):
 
@@ -51,7 +51,7 @@ class GameController:
             else:
                 player2.move(self.game)
 
-                self.display_board
+                self.display_board()
 
             if self.game.is_won():
                 return self.game_results(player1, player2)
@@ -64,14 +64,12 @@ class GameController:
             elif player2.marker == self.game.winner:
                 print(self.view.win_player(player=2))
         else:
-            print(self.view.draw)
+            print(self.view.draw())
 
-    @property
     def display_board(self):
-        print(self.view.board(self.game.board_positions))
+        print(self.view.board(self.game.board))
 
 class PlayerController:
-    player = None
 
     def __init__(self, player):
         self.player = player
@@ -85,7 +83,7 @@ class PlayerController:
             self.opponent = 'X'
 
     def move(self, game):
-        raise NotImplementedError
+        raise NotImplementedError()
 
 class HumanController(PlayerController):
 
@@ -95,7 +93,7 @@ class HumanController(PlayerController):
             move = input(self.view.next_move(self.player))
             try:
                 move = int(move) - 1
-            except:
+            except ValueError:
                 move = -1
         
             if move not in game.available_positions:
